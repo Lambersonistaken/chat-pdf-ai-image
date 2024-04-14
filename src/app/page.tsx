@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {UserButton, auth} from "@clerk/nextjs";
 import Link from "next/link";
 import {LogIn} from "lucide-react";
+import FileUpload from "@/components/FileUpload";
 
 
 export default async function Home() {
@@ -22,7 +23,7 @@ export default async function Home() {
           <p className="max-w-xl mt-2 text-lg text-slate-600">Dökümanlarınızı yükleyin ve pdf ile konuşmaya başlayın! Öğrenciler, öğretmenler ve profesörler için en ideal tool.</p>
           
           <div className="w-full mt-4">
-            {isAuth ? (<h1>File Upload</h1>) : (
+            {isAuth ? (<FileUpload/>) : (
               <Link href="/sign-in">
                 <Button> Login to get Started! 
                   <LogIn size={24} className="ml-2" />
