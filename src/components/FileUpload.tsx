@@ -8,7 +8,6 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 
-
 const FileUpload = () => {
   const [upLoading, setUpLoading] = React.useState(false)
   const { mutate,isLoading } = useMutation({
@@ -45,7 +44,8 @@ const FileUpload = () => {
         }
         mutate(data, {
           onSuccess: (data) => {
-            toast.success(data.message);
+            console.log (data);
+           // toast.success(data.message);
           },
           onError: (err) => {
             toast.error("Error creating chat");
