@@ -1,4 +1,5 @@
 
+import ChatSidebar from "@/components/ChatSidebar";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs";
@@ -28,8 +29,21 @@ const  ChatPage = async ({params: {chatId}}: Props) => {
       return redirect('/')
     }
   return (
-    <div>
-      <div></div>
+    <div className="flex max-h-screen overflow-hidden">
+      <div className="flex w-full max-h-screen overflow-hidden">
+        {/* Chat sidebar */}
+        <div className="flex-[1] max-w-xs">
+          <ChatSidebar chats={_chats} chatId={parseInt(chatId)} />
+        </div>
+        {/* PDF Viewer */}
+        <div className="max-h-screen p-4 overflow-hidden flex-[5]">
+          {/* PDF Viewer */}
+        </div>
+        {/* Chat component */}
+        <div className="flex-[3] border-1-4 border-1-slate-200">
+          {/* Chat component */}
+        </div>
+      </div>
     </div>
   )
 }
