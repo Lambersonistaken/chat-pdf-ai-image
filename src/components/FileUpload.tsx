@@ -8,17 +8,17 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import {useRouter} from 'next/navigation'
 
-
 const FileUpload = () => {
   const router = useRouter()
   const [upLoading, setUpLoading] = React.useState(false)
-  const { mutate,isLoading } = useMutation({
+  // Property 'isLoading' does not exist on type UseMutationResult
+  const { mutate, isPending } = useMutation({
       mutationFn: async({
         file_key,
         file_name,
       }:{
-        file_key: String;
-         file_name:String;
+         file_key: String;
+         file_name: String;
         }) => {
         const response = await axios.post('/api/create-chat', {
           file_key,
@@ -27,8 +27,10 @@ const FileUpload = () => {
         return response.data;
       }
   })
+
   const {getRootProps, getInputProps} = useDropzone({
     accept : {"application/pdf": [".pdf"]},
+    maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       console.log(acceptedFiles)
       const file = acceptedFiles[0]
@@ -45,8 +47,8 @@ const FileUpload = () => {
           return;
         }
         mutate(data, {
-          onSuccess: (chat_id) => {
-           // console.log (data);
+          // it is {chat_id}
+          onSuccess: ({ chat_id }) => {
             toast.success("Chat Created!");
             router.push( `/chat/${chat_id}.`)
           },
@@ -68,7 +70,7 @@ const FileUpload = () => {
     <div className='p-2 bg-white rounded-xl'>
         <div {...getRootProps({})} className='border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center'>
           <input {...getInputProps()} />
-          {upLoading || isLoading ? ( 
+          {upLoading || isPending ? ( 
             <>
             {/* loading state*/}
             <Loader2 className="h-10 w-10 text-blue-500 animate-spin"/>
