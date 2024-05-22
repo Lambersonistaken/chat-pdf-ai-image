@@ -1,5 +1,6 @@
+"use client"
 import React from "react";
-
+import { EmbedPDF } from "@simplepdf/react-embed-pdf";
 
 type Props = { pdf_url: string,
   pdf_name: string
@@ -8,11 +9,12 @@ type Props = { pdf_url: string,
 const PDFViewer = ({ pdf_url, pdf_name }: Props) => {
   return (
     <>
-    <div>{pdf_name}</div>
-     <iframe
-      src={`https://docs.google.com/gview?url=${pdf_url}&embedded=true`}
-      className="w-full h-full"
-    ></iframe>
+    
+    <EmbedPDF
+  mode="inline"
+  style={{ width: 900, height: 800 }}
+  documentURL={pdf_url}
+/>
     
     </>
    
