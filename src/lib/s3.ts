@@ -11,10 +11,10 @@ export async function uploadToS3(file: File) {
             params: {
                 Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
             },
-            region : 'eu-north-1'
+            region: 'eu-north-1'
         });
 
-        const file_key = 'uploads/' + Date.now().toString() + file.name.replace(' ','-')
+        const file_key = 'uploads/' + Date.now().toString() + file.name.replace(' ', '-')
 
         const params = {
             Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
@@ -22,8 +22,8 @@ export async function uploadToS3(file: File) {
             Key: file_key,
             Body: file
         }
-        const upload = s3.putObject(params).on('httpUploadProgress',evt =>{
-            console.log('uploading to s3...', parseInt(((evt.loaded*100)/evt.total).toString())) + "%"
+        const upload = s3.putObject(params).on('httpUploadProgress', evt => {
+            console.log('uploading to s3...', parseInt(((evt.loaded * 100) / evt.total).toString())) + "%"
         }).promise()
 
         await upload.then(data => {
@@ -38,7 +38,7 @@ export async function uploadToS3(file: File) {
     } catch (error) { }
 }
 
-        export function getS3Url(file_key: string) {
-            const url = 'https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME.s3.eu-north-1.amazonaws.com/${file_key}} ';
-            return url
-        }
+export function getS3Url(file_key: string) {
+    const url = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.eu-north-1.amazonaws.com/${file_key}`;
+    return url;
+}
